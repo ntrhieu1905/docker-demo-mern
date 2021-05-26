@@ -1,0 +1,50 @@
+version: "3.8"
+services:
+  frontend:
+    container_name: mern-fe
+    restart: always
+    build:
+      context: frontend
+    ports:
+      - 3000:3000
+    stdin_open: true
+    volumes: 
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - mern-app
+    depends_on: 
+      - backend
+
+  backend:
+    container_name: mern-be
+    restart: always
+    build:
+      context: backend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    networks:
+      - mern-app
+      - express-mongo
+    depends_on:
+      - mongo
+  
+  mongo:
+    restart: always
+    image: mongo:4.4.6-bionic
+    ports:
+      - 27017:27017
+    networks:
+      - express-mongo
+    volumes:
+      - mongodb-data:/data/db
+
+networks:
+  mern-app:
+  express-mongo:
+
+volumes:
+  mongodb-data:
