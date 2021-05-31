@@ -2,11 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const db = require('./config');
+const db = require('./config/db');
 const router = require('./router');
 
 const app = express();
-const PORT = 8080;
+const PORT = 8081;
 
 app.use(cors())
 app.use(bodyParser.json());
@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-app.use('/api', router);
+app.use('/v1', router);
 
 app.listen(PORT, () => {
   console.log(`Running on port ${PORT}`);

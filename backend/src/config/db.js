@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const mongoUri = 'mongodb://localhost/docker-demo-mern';
+const mongoUri = 'mongodb://mern-mongo:27017/docker-demo-mern';
 mongoose
   .connect(mongoUri, {
     useNewUrlParser: true,

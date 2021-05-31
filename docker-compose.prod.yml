@@ -1,7 +1,10 @@
 version: "3.8"
 services:
   frontend:
-    image: hieunt98/mern-fe:latest
+    container_name: mern-fe-prod
+    build:
+      context: frontend
+      target: build_prod
     restart: always
     hostname: frontend
     ports:
@@ -19,7 +22,10 @@ services:
       - backend
 
   backend:
-    image: hieunt98/mern-be:latest
+    container_name: mern-be-prod
+    build:
+      context: backend
+      target: build_prod
     restart: always
     hostname: backend
     ports:
@@ -33,6 +39,7 @@ services:
       - mongo
   
   mongo:
+    container_name: mern-mongo-prod
     image: mongo:4.4.6-bionic
     restart: always
     ports:
@@ -43,7 +50,9 @@ services:
       - mongodb-data:/data/db
 
   nginx:
-    image: hieunt98/mern-nginx:latest
+    container_name: mern-nginx-prod
+    build:
+      context: nginx
     restart: always
     networks:
       - mern-app
