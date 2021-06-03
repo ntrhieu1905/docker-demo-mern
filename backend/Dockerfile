@@ -24,6 +24,6 @@ RUN npm ci
 
 COPY . /usr/src/app
 
-EXPOSE 8081
+EXPOSE 8080
 
 CMD ["npm", "run", "build"]

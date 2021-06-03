@@ -4,11 +4,10 @@ services:
     container_name: mern-fe-prod
     build:
       context: frontend
-      target: build_prod
+      target: build
     restart: always
-    hostname: frontend
     ports:
-      - 3000:3000
+      - 5000:80
     stdin_open: true
     volumes: 
       - ./frontend:/usr/src/app
@@ -16,10 +15,8 @@ services:
     networks:
       - mern-app
     env_file: ./frontend/.env.production
-    environment: 
-      - CHOKIDAR_USEPOLLING=true
-    depends_on: 
-      - backend
+    # environment: 
+    #   - CHOKIDAR_USEPOLLING=true
 
   backend:
     container_name: mern-be-prod
@@ -29,17 +26,19 @@ services:
     restart: always
     hostname: backend
     ports:
-      - 8081:8081
+      - 6000:6000
     volumes:
       - ./backend:/usr/src/app
       - /usr/src/app/node_modules
     networks:
       - mern-app
+    env_file: ./backend/.env.production
     depends_on:
       - mongo
+      - frontend
   
   mongo:
-    container_name: mern-mongo-prod
+    container_name: mern-mongo
     image: mongo:4.4.6-bionic
     restart: always
     ports:
@@ -48,16 +47,6 @@ services:
       - mern-app
     volumes:
       - mongodb-data:/data/db
-
-  nginx:
-    container_name: mern-nginx-prod
-    build:
-      context: nginx
-    restart: always
-    networks:
-      - mern-app
-    ports: 
-      - 80:80
 
 networks:
   mern-app:

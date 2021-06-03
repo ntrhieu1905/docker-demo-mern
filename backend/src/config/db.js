@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const mongoUri = 'mongodb://mern-mongo:27017/docker-demo-mern';
+const mongoUri = `mongodb://${process.env.MONGO_URI}:${process.env.MONGO_PORT}/${process.env.MONGO_DATABASE_NAME}`;
 mongoose
   .connect(mongoUri, {
     useNewUrlParser: true,

@@ -1,12 +1,20 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const dotenv = require('dotenv');
+
+if (process.env.NODE_ENV != 'production') {
+  dotenv.config({
+    path: path.resolve(process.cwd(), '.env.development')
+  });
+}
 
 const db = require('./config/db');
 const router = require('./router');
 
 const app = express();
-const PORT = 8081;
+const PORT = process.env.PORT || 6000;
 
 app.use(cors())
 app.use(bodyParser.json());
@@ -19,6 +27,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/v1', router);
+
+console.log(process.env.APP_NAME);
 
 app.listen(PORT, () => {
   console.log(`Running on port ${PORT}`);

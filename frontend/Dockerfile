@@ -26,13 +26,11 @@ RUN npm ci
 
 COPY . /usr/src/app
 
-EXPOSE 3000
-
-CMD ["npm", "run", "build"]
+RUN npm run build
 
 # nginx for production environment
-FROM nginx:stable
+FROM nginx:stable as build
 COPY --from=build_prod /usr/src/app/build /usr/share/nginx/html
-# COPY --from=build_prod nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
