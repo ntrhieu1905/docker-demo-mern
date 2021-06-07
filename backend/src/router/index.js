@@ -1,12 +1,13 @@
 const express = require('express');
+const multer = require('multer');
 
 const router = express.Router();
 
-router.get('/images', (req, res) => {
-  res.json('list images');
-});
-router.get('/images/:id', (req, res) => {
-  res.json(`image by id: ${req.params.id}`);
-});
+const noteController = require('../controllers/noteController');
+
+router.get('/note', noteController.getNote);
+router.get('/note/:id', noteController.getNoteById);
+
+router.post('/note', noteController.addNote);
 
 module.exports = router;

@@ -9,6 +9,7 @@
     "axios": "^0.21.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-hook-form": "^7.8.1",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
@@ -34,7 +35,6 @@
       "react-app/jest"
     ]
   },
-  "proxy": "http://backend:8081",
   "browserslist": {
     "production": [
       ">0.2%",
